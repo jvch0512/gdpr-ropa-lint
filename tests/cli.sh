@@ -15,9 +15,9 @@ exp "bad flag" 2 --bogus
 exp "no args" 2
 exp "bad fail-on" 2 examples --fail-on low
 exp "two paths" 2 examples examples
-"$BIN" examples --tsv | head -1 | grep -q '^# 2 files, 9 findings$' && ok "tsv header" || bad "tsv header"
+"$BIN" examples --tsv | head -1 | grep -q '^# 2 files, 10 findings$' && ok "tsv header" || bad "tsv header"
 "$BIN" examples --tsv | sed -n 2p | awk -F'\t' 'NF==4{exit 0} {exit 1}' && ok "tsv columns" || bad "tsv columns"
-"$BIN" examples | head -1 | grep -q '^2 files, 9 findings$' && ok "human header" || bad "human header"
+"$BIN" examples | head -1 | grep -q '^2 files, 10 findings$' && ok "human header" || bad "human header"
 printf 'activity,legal_basis\nX,\n' > "$T/one.csv"
 "$BIN" "$T/one.csv" --tsv | grep -q $'\tGDP001\tone.csv:2\t' && ok "single file label" || bad "single file label"
 head -c 2000 /dev/urandom > "$T/bin.csv"

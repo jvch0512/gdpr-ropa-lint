@@ -1,6 +1,10 @@
 # gdpr-ropa-lint
 
-gdpr-ropa-lint reads a CSV record of processing activities (`activity,purpose,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia`) and checks what Article 30 of the GDPR requires to be in it, plus a few consistency checks a DPO would make by hand: a lawful basis from Article 6, an Article 9 condition when special categories are processed, a transfer mechanism when data leaves the EEA, a retention period, security measures, a legitimate-interests assessment and a DPIA for profiling.
+[Español](README.es.md)
+
+gdpr-ropa-lint reads a CSV record of processing activities (`activity,purpose,data_subjects,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia`) and checks what Article 30 of the GDPR requires to be in it, plus a few consistency checks a DPO would make by hand: a lawful basis from Article 6, an Article 9 condition when special categories are processed, a transfer mechanism when data leaves the EEA, a retention period, security measures, a legitimate-interests assessment and a DPIA for profiling.
+
+![Terminal demo of gdpr-ropa-lint on its sample data](docs/demo.svg)
 
 **Live demo:** https://jvch0512.github.io/gdpr-ropa-lint/ (Synthetic data.)
 
@@ -27,8 +31,9 @@ Exit codes: 0 ok, 1 findings at or above `--fail-on`, 2 bad input. Output is hum
 | GDP006 | medium | no recipients listed (write `none` if there are none) |
 | GDP007 | low | no purpose |
 | GDP008 | medium | legitimate interests relied on and `lia_ref` is empty |
-| GDP009 | medium | profiling is `yes` and `dpia` is not `yes` |
+| GDP009 | medium | profiling is `yes` and `dpia` is not `yes` (Article 35(3)(a) requires a DPIA for systematic, extensive profiling with significant effects) |
 | GDP010 | low | the same activity name appears twice |
+| GDP011 | medium or low | no categories of data subjects (Article 30(1)(c)): medium for an empty value, low when the column is missing |
 | GDP000 | info | empty file or no `activity` and `legal_basis` columns |
 
 See [examples](examples) and [docs/sample-output.txt](docs/sample-output.txt).
@@ -51,3 +56,13 @@ make test    # Go tests: every rule on good and bad rows, CSV quoting, line numb
 ```
 
 MIT.
+
+## Code scanning (SARIF)
+
+`scripts/tsv2sarif.py` converts the `--tsv` output into SARIF 2.1.0, so findings show up in GitHub code scanning:
+
+```sh
+build/gdpr-ropa-lint examples --tsv | python3 scripts/tsv2sarif.py --tool gdpr-ropa-lint --prefix examples > results.sarif
+```
+
+Upload `results.sarif` with `github/codeql-action/upload-sarif`. Severities map to SARIF levels (critical and high to error, medium to warning, low and info to note) and to a `security-severity` score.

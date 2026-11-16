@@ -1,8 +1,8 @@
-activity,purpose,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia
-Payroll,Pay employees,legal_obligation,"name, IBAN, salary",,,Tax authority; payroll provider,,,7 years,Encrypted at rest; role-based access,,no,no
-Recruitment,Select candidates,legitimate_interests,"CV, contact",,,HR team,,,12 months after decision,Access limited to HR,,yes,no
-Occupational health,Fitness for work,legal_obligation,health data,health,,Occupational physician,,,duration of employment,Pseudonymised files,,no,no
-CRM,Manage customers,contract,"name, email, orders",,,Sales team; SaaS vendor,US,,5 years,SSO with MFA,,no,no
-Newsletter,,consent,email,,,Mailing provider,,,until withdrawal,TLS,,no,no
-Web analytics,Measure traffic,consent,"IP, device",,,,,,,,,yes,yes
-CRM,Duplicate row,contract,email,,,Sales team,,,5 years,SSO,,no,no
+activity,purpose,data_subjects,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia
+Payroll,Pay employees,employees,legal_obligation,"name, IBAN, salary",,,Tax authority; payroll provider,,,7 years,Encrypted at rest; role-based access,,no,no
+Recruitment,Select candidates,job candidates,legitimate_interests,"CV, contact",,,HR team,,,12 months after decision,Access limited to HR,,yes,no
+Occupational health,Fitness for work,employees,legal_obligation,health data,health,,Occupational physician,,,duration of employment,Pseudonymised files,,no,no
+CRM,Manage customers,customers,contract,"name, email, orders",,,Sales team; SaaS vendor,US,,5 years,SSO with MFA,,no,no
+Newsletter,,subscribers,consent,email,,,Mailing provider,,,until withdrawal,TLS,,no,no
+Web analytics,Measure traffic,,consent,"IP, device",,,,,,,,,yes,yes
+CRM,Duplicate row,customers,contract,email,,,Sales team,,,5 years,SSO,,no,no

@@ -85,6 +85,10 @@ func Audit(text, label string) []Finding {
 	}
 	var out []Finding
 	seen := map[string]bool{}
+	_, hasSubjects := idx["data_subjects"]
+	if !hasSubjects {
+		out = append(out, Finding{"low", "GDP011", label, lines[0], "no data_subjects column: Article 30(1)(c) asks for the categories of data subjects"})
+	}
 	for n := 1; n < len(rows); n++ {
 		rec, ln := rows[n], lines[n]
 		col := func(k string) string {
@@ -125,8 +129,11 @@ func Audit(text, label string) []Finding {
 		if basis == "legitimate_interests" && col("lia_ref") == "" {
 			add("medium", "GDP008", "legitimate interests relied on with no legitimate interests assessment reference")
 		}
+		if hasSubjects && col("data_subjects") == "" {
+			add("medium", "GDP011", "no categories of data subjects (Article 30(1)(c))")
+		}
 		if yes(col("profiling")) && !yes(col("dpia")) {
-			add("medium", "GDP009", "profiling without a completed DPIA")
+			add("medium", "GDP009", "profiling without a DPIA: Article 35(3)(a) requires one when it is systematic, extensive and has legal or similarly significant effects")
 		}
 		if name != "" {
 			key := strings.ToLower(name)

@@ -1,4 +1,4 @@
-2 files, 9 findings
+2 files, 10 findings
 HIGH     GDP002 ropa.csv:4
          Occupational health: special categories are processed without an Article 9 condition
 HIGH     GDP003 ropa.csv:5
@@ -6,13 +6,15 @@ HIGH     GDP003 ropa.csv:5
 MEDIUM   GDP008 ropa.csv:3
          Recruitment: legitimate interests relied on with no legitimate interests assessment reference
 MEDIUM   GDP009 ropa.csv:3
-         Recruitment: profiling without a completed DPIA
+         Recruitment: profiling without a DPIA: Article 35(3)(a) requires one when it is systematic, extensive and has legal or similarly significant effects
 MEDIUM   GDP004 ropa.csv:7
          Web analytics: no retention period
 MEDIUM   GDP005 ropa.csv:7
          Web analytics: no description of security measures
 MEDIUM   GDP006 ropa.csv:7
          Web analytics: no recipients listed (write none if there are none)
+MEDIUM   GDP011 ropa.csv:7
+         Web analytics: no categories of data subjects (Article 30(1)(c))
 LOW      GDP007 ropa.csv:6
          Newsletter: no purpose
 LOW      GDP010 ropa.csv:8

@@ -7,12 +7,12 @@ import (
 	"testing"
 )
 
-const hdr = "activity,purpose,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia\n"
+const hdr = "activity,purpose,data_subjects,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia\n"
 
 // base returns a clean row with overrides applied by column name.
 func base(over map[string]string) string {
-	cols := []string{"activity", "purpose", "legal_basis", "data_categories", "special_categories", "art9_condition", "recipients", "third_country", "transfer_safeguard", "retention", "security_measures", "lia_ref", "profiling", "dpia"}
-	def := map[string]string{"activity": "Billing", "purpose": "Invoice", "legal_basis": "contract", "data_categories": "name", "recipients": "none", "retention": "5y", "security_measures": "MFA", "profiling": "no", "dpia": "no"}
+	cols := []string{"activity", "purpose", "data_subjects", "legal_basis", "data_categories", "special_categories", "art9_condition", "recipients", "third_country", "transfer_safeguard", "retention", "security_measures", "lia_ref", "profiling", "dpia"}
+	def := map[string]string{"activity": "Billing", "purpose": "Invoice", "data_subjects": "customers", "legal_basis": "contract", "data_categories": "name", "recipients": "none", "retention": "5y", "security_measures": "MFA", "profiling": "no", "dpia": "no"}
 	var vals []string
 	for _, c := range cols {
 		v, ok := over[c]
@@ -76,6 +76,8 @@ func TestMissingFields(t *testing.T) {
 	expect(t, "security", hdr+base(map[string]string{"security_measures": ""}), "GDP005")
 	expect(t, "recipients", hdr+base(map[string]string{"recipients": ""}), "GDP006")
 	expect(t, "purpose", hdr+base(map[string]string{"purpose": ""}), "GDP007")
+	expect(t, "data subjects empty", hdr+base(map[string]string{"data_subjects": ""}), "GDP011")
+	expect(t, "no data_subjects column", "activity,purpose,legal_basis,data_categories,recipients,retention,security_measures,profiling,dpia\nBilling,Invoice,contract,name,none,5y,MFA,no,no\n", "GDP011")
 	expect(t, "whitespace only", hdr+base(map[string]string{"retention": "   "}), "GDP004")
 }
 
@@ -107,9 +109,9 @@ func TestShapes(t *testing.T) {
 	}
 	expect(t, "crlf", strings.ReplaceAll(hdr+base(nil), "\n", "\r\n"), "")
 	expect(t, "quoted comma", hdr+base(map[string]string{"data_categories": "name, address"}), "")
-	expect(t, "short row", hdr+"X,Y\n", "GDP001,GDP004,GDP005,GDP006")
+	expect(t, "short row", hdr+"X,Y\n", "GDP001,GDP004,GDP005,GDP006,GDP011")
 	expect(t, "long row", hdr+base(nil)[:len(base(nil))-1]+",extra,more\n", "")
-	expect(t, "nul bytes", hdr+"a\x00b,p,contract\n", "GDP004,GDP005,GDP006")
+	expect(t, "nul bytes", hdr+"a\x00b,p,customers,contract\n", "GDP004,GDP005,GDP006")
 }
 
 func TestLines(t *testing.T) {
