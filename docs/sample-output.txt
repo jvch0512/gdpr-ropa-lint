@@ -1,0 +1,19 @@
+2 files, 9 findings
+HIGH     GDP002 ropa.csv:4
+         Occupational health: special categories are processed without an Article 9 condition
+HIGH     GDP003 ropa.csv:5
+         CRM: data goes to US with no transfer safeguard
+MEDIUM   GDP008 ropa.csv:3
+         Recruitment: legitimate interests relied on with no legitimate interests assessment reference
+MEDIUM   GDP009 ropa.csv:3
+         Recruitment: profiling without a completed DPIA
+MEDIUM   GDP004 ropa.csv:7
+         Web analytics: no retention period
+MEDIUM   GDP005 ropa.csv:7
+         Web analytics: no description of security measures
+MEDIUM   GDP006 ropa.csv:7
+         Web analytics: no recipients listed (write none if there are none)
+LOW      GDP007 ropa.csv:6
+         Newsletter: no purpose
+LOW      GDP010 ropa.csv:8
+         CRM: the activity name appears more than once

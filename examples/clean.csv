@@ -1,0 +1,2 @@
+activity,purpose,legal_basis,data_categories,special_categories,art9_condition,recipients,third_country,transfer_safeguard,retention,security_measures,lia_ref,profiling,dpia
+Customer billing,Invoice customers,contract,"name, address",,,Accounting software provider,US,SCC 2021 and TIA,10 years,Encrypted; MFA,,no,no
